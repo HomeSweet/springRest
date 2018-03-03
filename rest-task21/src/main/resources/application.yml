@@ -1,0 +1,14 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            clientId: 233668646673605
+            clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d          
+          github:  
+            clientId: bd1c0a783ccdd1c9b9e4
+            clientSecret: bd1c0a783ccdd1c9b9e4            
+logging:
+  level:
+    org.springframework.security: DEBUG
