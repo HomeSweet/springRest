@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.discovery.controller.exception.BookValidationException;
 import it.discovery.model.Book;
 import it.discovery.repository.BookRepository;
 
@@ -38,7 +39,7 @@ public class BookController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Book> findBookById(@PathVariable int id) {
 		if(id <=0) {
-			return new ResponseEntity<Book>(HttpStatus.BAD_REQUEST);
+			throw new BookValidationException(String.format("Book id is not valid: %s", id));
 		}
 		Book book = bookRepository.findById(id);
 		if(book == null) {
