@@ -28,7 +28,8 @@ public class BookController {
 		this.bookRepository = bookRepository;
 	}
 
-	@GetMapping
+	@GetMapping(produces= {MediaType.APPLICATION_JSON_UTF8_VALUE,
+			MediaType.APPLICATION_XML_VALUE})
 	public List<Book> getBooks() {
 		return bookRepository.findAll();
 	}
