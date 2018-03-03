@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,9 +35,17 @@ public class BookController {
 		return bookRepository.findAll();
 	}
 
-	@GetMapping("{/id}")
-	public Book findBookById(@PathVariable int id) {
-		return bookRepository.findById(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<Book> findBookById(@PathVariable int id) {
+		if(id <=0) {
+			return new ResponseEntity<Book>(HttpStatus.BAD_REQUEST);
+		}
+		Book book = bookRepository.findById(id);
+		if(book == null) {
+			return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Book>(book, HttpStatus.OK);
 	}
 	
 	@PostMapping
