@@ -12,5 +12,7 @@ public interface BookRepository {
 	void save(Book book);
 	
 	boolean delete(int id);
+	
+	boolean isEmpty();
 
 }
