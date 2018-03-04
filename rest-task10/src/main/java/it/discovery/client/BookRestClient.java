@@ -3,14 +3,15 @@ package it.discovery.client;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import it.discovery.model.Book;
 
 public class BookRestClient {
-	private RestTemplate restTemplate 
-	= new RestTemplate();
+	private TestRestTemplate restTemplate 
+	= new TestRestTemplate("root", "pwd");
 	
 	private final String baseUrl;
 	

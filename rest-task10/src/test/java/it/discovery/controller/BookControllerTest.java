@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,6 +30,7 @@ public class BookControllerTest {
 	private BookRepository bookRepository;
 
 	@Test
+	@WithMockUser(username="root", authorities="ADMIN")
 	public void getBooks_RepositoryEmpty_NoBooksReturned() throws Exception {
 
 		BDDMockito.given(bookRepository.findAll())
