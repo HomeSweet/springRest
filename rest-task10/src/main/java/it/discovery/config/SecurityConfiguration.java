@@ -7,27 +7,30 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends 
-	WebSecurityConfigurerAdapter {
-	
+@EnableGlobalMethodSecurity(prePostEnabled = true, 
+securedEnabled = true)
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic();
 		http.authorizeRequests().anyRequest()
-		.fullyAuthenticated();
-	    http.csrf().disable();
+		.fullyAuthenticated()
+		.and()
+		.oauth2Login()
+		.defaultSuccessUrl("/success.html");
+		http.csrf().disable();
 	}
 
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication()
-//		.withUser("admin")
-//		.password("admin")
-//		.roles("ROLE_ADMIN")
-//		.and()
-//		.withUser("user").password("user").roles("ROLE_USER");
-//	}
-	
-	
+	// @Override
+	// protected void configure(AuthenticationManagerBuilder auth) throws Exception
+	// {
+	// auth.inMemoryAuthentication()
+	// .withUser("admin")
+	// .password("admin")
+	// .roles("ROLE_ADMIN")
+	// .and()
+	// .withUser("user").password("user").roles("ROLE_USER");
+	// }
+
 }
