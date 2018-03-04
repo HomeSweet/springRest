@@ -8,6 +8,16 @@ public class Book {
 	private String name;
 	
 	private int year;
+	
+	private boolean rented;
+
+	public boolean isRented() {
+		return rented;
+	}
+
+	public void setRented(boolean rented) {
+		this.rented = rented;
+	}
 
 	public int getId() {
 		return id;
