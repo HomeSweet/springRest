@@ -5,8 +5,8 @@
         http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
 
 	<cache alias="books">
-		<key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
-		<value-type>java.util.Collections$SingletonList</value-type>
+		<key-type>java.lang.Integer</key-type>
+		<value-type>org.springframework.http.ResponseEntity</value-type>
 		<heap unit="entries">200</heap>
 		<heap-store-settings>
 			<max-object-size>2000</max-object-size>

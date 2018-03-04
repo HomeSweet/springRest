@@ -3,6 +3,8 @@ package it.discovery.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.cache.annotation.CacheResult;
+import javax.cache.annotation.CacheValue;
 import javax.validation.Valid;
 
 import org.springframework.cache.annotation.CachePut;
@@ -52,7 +54,8 @@ public class BookController {
 	}
 
 	@GetMapping("/{id}")
-	@Cacheable("books")
+	//@Cacheable("books")
+	@CacheResult(cacheName="books")
 	public ResponseEntity<Book> findBookById(@PathVariable int id) {
 		if(id <=0) {
 			throw new BookValidationException(String.format("Book id is not valid: %s", id));
@@ -72,9 +75,10 @@ public class BookController {
 	}
 	
 	@PutMapping("/{id}")
-	@CachePut("books")
+	//@CachePut("books")
+	@javax.cache.annotation.CachePut(cacheName="books")
 	public void updateBook(@PathVariable int id,
-			@Valid @RequestBody Book book) {
+			@Valid @RequestBody @CacheValue Book book) {
 		bookRepository.save(book);
 	}
 	
