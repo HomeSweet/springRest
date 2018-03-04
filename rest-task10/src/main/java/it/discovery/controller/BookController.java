@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -50,6 +52,7 @@ public class BookController {
 	}
 
 	@GetMapping("/{id}")
+	@Cacheable("books")
 	public ResponseEntity<Book> findBookById(@PathVariable int id) {
 		if(id <=0) {
 			throw new BookValidationException(String.format("Book id is not valid: %s", id));
@@ -65,6 +68,13 @@ public class BookController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveBook(@Valid @RequestBody Book book) {
+		bookRepository.save(book);
+	}
+	
+	@PutMapping("/{id}")
+	@CachePut("books")
+	public void updateBook(@PathVariable int id,
+			@Valid @RequestBody Book book) {
 		bookRepository.save(book);
 	}
 	

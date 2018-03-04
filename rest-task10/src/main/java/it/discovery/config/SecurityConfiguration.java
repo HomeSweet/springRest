@@ -16,6 +16,7 @@ public class SecurityConfiguration extends
 		http.httpBasic();
 		http.authorizeRequests().anyRequest()
 		.fullyAuthenticated();
+	    http.csrf().disable();
 	}
 
 //	@Override
